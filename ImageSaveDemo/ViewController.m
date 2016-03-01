@@ -97,35 +97,35 @@
             _actionActionSheet.title = tagsSRC;
         }
         
-        [_actionActionSheet addButtonWithTitle:@"Save Image"];
-        [_actionActionSheet addButtonWithTitle:@"Copy Image"];
+        [_actionActionSheet addButtonWithTitle:@"保存图片"];
+        [_actionActionSheet addButtonWithTitle:@"复制图片链接"];
     }
     // If a link is pressed add image buttons.
     if ([tags rangeOfString:@",A,"].location != NSNotFound){
         _selectedLinkURL = tagsHREF;
         
         _actionActionSheet.title = tagsHREF;
-        [_actionActionSheet addButtonWithTitle:@"Open Link"];
-        [_actionActionSheet addButtonWithTitle:@"Copy Link"];
+        [_actionActionSheet addButtonWithTitle:@"打开链接"];
+        [_actionActionSheet addButtonWithTitle:@"复制链接"];
     }
     
     if (_actionActionSheet.numberOfButtons > 0) {
-        [_actionActionSheet addButtonWithTitle:@"Cancel"];
+        [_actionActionSheet addButtonWithTitle:@"取消"];
         _actionActionSheet.cancelButtonIndex = (_actionActionSheet.numberOfButtons-1);
         [_actionActionSheet showInView:_webview];
     }
 }
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Open Link"]){
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"打开链接"]){
         [_webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_selectedLinkURL]]];
     }
-    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Copy Link"]){
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"复制链接"]){
         [[UIPasteboard generalPasteboard] setString:_selectedLinkURL];
     }
-    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Copy Image"]){
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"复制图片链接"]){
         [[UIPasteboard generalPasteboard] setString:_selectedImageURL];
     }
-    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Save Image"]){
+    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"保存图片"]){
 //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_selectedImageURL]]];
 //            UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
